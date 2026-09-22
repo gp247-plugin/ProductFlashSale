@@ -14,28 +14,21 @@
     if (gp247_extension_check_active($config['configGroup'], $config['configKey'])) {
         $this->loadViewsFrom(__DIR__.'/Views', $extensionPath);
 
-        // Offer this plugin's storefront block to the active template as one more
-        // template SOURCE ROOT, instead of copying a file into app/GP247/Templates.
+        // Offer this plugin's storefront block to the LayoutBlock screen by
+        // REGISTERING it, not by shipping a directory named after somebody else's
+        // template. gp247_render_block() looks the template's own file up first and
+        // falls back to this registry, so the block works on every template, needs
+        // no writable directory, and leaves nothing behind when the plugin goes.
         //
-        // WHY this works: a template's files are served through the GP247TemplatePath
-        // namespace, one hint path per source, and BOTH sides read exactly those hints
-        // — gp247_render_block() resolves GP247TemplatePath::<Template>.blocks.<name>,
-        // and the admin block picker lists what gp247_template_files() finds across
-        // TemplateSourceAudit::roots(), which is the hint list itself. Registering here
-        // therefore makes the block appear in the picker and render, with no file copy:
-        // it needs no writable template directory (shared hosting), leaves nothing
-        // behind when the plugin is removed, and follows plugin updates by itself.
+        // Before modification 20260922T205500 this plugin added its own
+        // GP247TemplatePath hint root, which meant hardcoding "GP247Front" (a custom
+        // template never saw the block) and declaring itself a template source to
+        // gp247:template-publish / template-prune / doctor.
         //
-        // Registered from a booted() callback, NOT with loadViewsFrom() here: hints are
-        // appended in registration order, and a plugin's Provider.php runs before
-        // FrontServiceProvider adds its own. Registering inline would put this plugin
-        // AHEAD of app/GP247/Templates and let it shadow a file the site published to
-        // edit — the one thing the override order exists to prevent. Deferring to
-        // booted() puts it last, after every package root.
-        $pluginTemplateRoot = __DIR__.'/template';
-        $this->app->booted(function () use ($pluginTemplateRoot): void {
-            \Illuminate\Support\Facades\View::addNamespace('GP247TemplatePath', $pluginTemplateRoot);
-        });
+        // @aidlc-adr frontend-template-dev_plugin-layout-block-views
+        $blockViews = config('gp247-config.front.layout_block_views', []);
+        $blockViews['product_flash_sale'] = $extensionPath.'::blocks.product_flash_sale';
+        config(['gp247-config.front.layout_block_views' => $blockViews]);
 
         if (file_exists(__DIR__.'/config.php')) {
             $this->mergeConfigFrom(__DIR__.'/config.php', $extensionPath);

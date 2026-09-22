@@ -1,6 +1,6 @@
 > 🌐 **Ngôn ngữ:** 🇻🇳 Tiếng Việt (hiện tại) · [🇬🇧 English](./readme.md)
 
-# Plugin Product Flash Sale cho GP247
+# Plugin Product Flash Sale cho S-Cart (GP247)
 
 ## Giới thiệu
 Tài liệu này hướng dẫn cài đặt và sử dụng plugin **Product Flash Sale** — công cụ bán hàng theo khung giờ, có giới hạn số suất ("chỉ 20 suất, trong 3 tiếng"). Tài liệu dành cho chủ cửa hàng và người quản trị site GP247, không yêu cầu biết lập trình. Đọc xong, bạn tự tạo được một đợt Flash Sale, gắn nó lên trang chủ và hiểu vì sao hệ thống đôi khi từ chối một thao tác.
@@ -30,7 +30,7 @@ Flash Sale là một lời hứa đếm được: **chỉ N suất, trong khung 
 
    Nếu thành công, hệ thống hiện thông báo cài đặt thành công. Nếu báo *không tương thích*, gần như chắc chắn site đang chạy core cũ hơn 3.0 — hãy cập nhật core trước.
 
-4. Hệ thống tự làm ba việc: tạo bảng dữ liệu `shop_product_flash` (nếu chưa có), thêm mục menu dưới nhóm **Catalog** (Danh mục), và **đặt sẵn dải Flash Sale xuống cuối trang chủ** của các cửa hàng chưa có khối này (một dòng trong màn **Layout block**, đang bật). Khối `product_flash_sale` cũng xuất hiện sẵn trong ô chọn của màn Layout block — plugin cung cấp thẳng từ thư mục của nó, không copy file nào vào template.
+4. Hệ thống tự làm ba việc: tạo bảng dữ liệu `shop_product_flash` (nếu chưa có), thêm mục menu dưới nhóm **Catalog** (Danh mục), và **đặt sẵn dải Flash Sale xuống cuối trang chủ** của các cửa hàng chưa có khối này (một dòng trong màn **Layout block**, đang bật). Khối `product_flash_sale` cũng xuất hiện sẵn trong ô chọn của màn Layout block — plugin **đăng ký** khối với hệ thống, không copy file nào vào thư mục template, nên khối chạy với mọi template và biến mất sạch khi bạn gỡ plugin.
 
    Nếu bạn xoá hoặc chuyển dải đi chỗ khác, **cập nhật plugin sau này sẽ không đặt lại** — vị trí hiển thị là quyết định của bạn, plugin chỉ gợi ý một lần lúc cài.
 
@@ -92,21 +92,11 @@ Cách dễ nhất là dùng màn **Layout block** trong quản trị, không c�
 
 5. Tick **Active** rồi **Submit**, sau đó tải lại trang chủ. Nếu đang có đợt chạy, bạn sẽ thấy dải sản phẩm cuộn ngang, mỗi thẻ có phần trăm giảm giá, số đã bán / còn lại và đồng hồ đếm ngược. Nếu không có đợt nào, dải này tự ẩn — trang chủ không bị khoảng trống.
 
-> **Không thấy `product_flash_sale` trong ô Text?** Kiểm tra plugin đang **Enable** (khối chỉ xuất hiện khi plugin bật), rồi chạy `php artisan optimize:clear` và tải lại màn Layout block. Site đang dùng **template riêng** (không phải GP247Front) thì xem mục ngay dưới.
+> **Không thấy `product_flash_sale` trong ô Text?** Kiểm tra plugin đang **Enable** (khối chỉ xuất hiện khi plugin bật), rồi chạy `php artisan optimize:clear` và tải lại màn Layout block.
 
-**Nếu site dùng template riêng** (tên khác `GP247Front`): plugin cung cấp khối theo **tên template**, nên với template riêng bạn tạo một file một dòng:
+**Site dùng template riêng** (tên khác `GP247Front`): **không cần làm gì thêm** — từ bản 2.0.1 khối được plugin đăng ký thẳng với hệ thống, không phụ thuộc tên template, nên nó có mặt trong ô Text với mọi template.
 
-```
-app/GP247/Templates/{TÊN_TEMPLATE}/blocks/product_flash_sale.blade.php
-```
-
-với nội dung:
-
-```blade
-@include('Plugins/ProductFlashSale::blocks.product_flash_sale')
-```
-
-Sau đó khối `product_flash_sale` xuất hiện trong ô Text như trên. (Khối có sẵn của cửa hàng cũng hoạt động đúng như vậy.)
+**Muốn sửa giao diện của dải?** Đừng sửa file trong thư mục plugin — bản cập nhật plugin sẽ ghi đè. Có ba cách giữ được bản sửa, xem mục [Tuỳ biến giao diện dải Flash Sale](#tuỳ-biến-giao-diện-dải-flash-sale) bên dưới.
 
 **Cách chèn tay** (khi bạn muốn ghim cứng vị trí trong giao diện, không qua Layout block): mở file trang chủ của template, ví dụ
 
@@ -235,6 +225,7 @@ Lưu ý: màn tạo đợt Flash Sale nằm ở khu quản trị gốc. Trong m�
 - Bảng dữ liệu: `shop_product_flash` gồm `id`, `product_id`, `stock` (số suất), `sold` (đã bán), `sort`.
 - Giá và khung giờ lưu ở bảng khuyến mãi có sẵn của cửa hàng: `shop_product_promotion`.
 - Namespace view/ngôn ngữ: `Plugins/ProductFlashSale`.
+- Khối trang chủ được đăng ký vào `config('gp247-config.front.layout_block_views')` (khoá `product_flash_sale`) từ `Provider.php`, không ship thư mục template và không copy file vào `app/GP247/Templates`. Hệ thống tra file của template **trước**, nên bản bạn tự viết luôn thắng.
 - Các hàm dùng lại được trong giao diện:
 
   ```php

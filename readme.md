@@ -1,6 +1,6 @@
 > 🌐 **Language:** [🇻🇳 Tiếng Việt](./readme_vi.md) · 🇬🇧 English (current)
 
-# Product Flash Sale plugin for GP247
+# Product Flash Sale plugin for S-Cart (GP247)
 
 ## Introduction
 This document explains how to install and use the **Product Flash Sale** plugin — a tool for time-boxed selling with a limited number of units ("only 20 units, for 3 hours"). It is written for shop owners and GP247 site administrators; no programming knowledge is required. By the end you will be able to schedule a flash sale, put it on your homepage, and understand why the system sometimes refuses an action.
@@ -30,7 +30,7 @@ A flash sale is a promise you can count: **only N units, in this window**. The p
 
    If it works, the system shows an "installed successfully" message. If it reports *not compatible*, your site is almost certainly on a core older than 3.0 — update the core first.
 
-4. The system does three things for you: it creates the `shop_product_flash` data table (if missing), adds a menu entry under the **Catalog** group, and **places the strip at the bottom of the home page** of every store that does not have this block yet (one active row in the **Layout block** screen). The `product_flash_sale` block also shows up in the Layout block picker right away — the plugin offers it straight from its own folder, without copying any file into your template.
+4. The system does three things for you: it creates the `shop_product_flash` data table (if missing), adds a menu entry under the **Catalog** group, and **places the strip at the bottom of the home page** of every store that does not have this block yet (one active row in the **Layout block** screen). The `product_flash_sale` block also shows up in the Layout block picker right away — the plugin **registers** the block with the system rather than copying a file into your template folder, so it works with every template and disappears cleanly when you remove the plugin.
 
    If you delete that placement or move it elsewhere, **a later plugin update will not put it back** — where it appears is your decision; the plugin only suggests a spot once, at install time.
 
@@ -92,21 +92,11 @@ The easiest way is the admin **Layout block** screen — no file editing:
 
 5. Tick **Active**, click **Submit**, then reload the homepage. If a sale is running, you will see a horizontally scrolling strip of cards, each with the discount percentage, sold / left, and a countdown. When no sale is running the strip hides itself — your homepage is not left with an empty gap.
 
-> **Cannot see `product_flash_sale` in the Text box?** Check that the plugin is **Enabled** (the block only appears while it is), then run `php artisan optimize:clear` and reload the Layout block screen. If your site runs a **custom template** (not GP247Front), see the next section.
+> **Cannot see `product_flash_sale` in the Text box?** Check that the plugin is **Enabled** (the block only appears while it is), then run `php artisan optimize:clear` and reload the Layout block screen.
 
-**If your site runs a custom template** (a name other than `GP247Front`): the plugin offers the block per template name, so for your own template create a one-line file at
+**If your site runs a custom template** (a name other than `GP247Front`): **nothing extra to do** — since 2.0.1 the plugin registers the block with the system itself, independently of the template name, so it is offered on every template.
 
-```
-app/GP247/Templates/{TEMPLATE_NAME}/blocks/product_flash_sale.blade.php
-```
-
-containing:
-
-```blade
-@include('Plugins/ProductFlashSale::blocks.product_flash_sale')
-```
-
-The `product_flash_sale` block then appears in the Text box as above. (The shop's own blocks work the same way.)
+**Want to change how the strip looks?** Do not edit the file inside the plugin folder — a plugin update overwrites it. Three ways that survive an update are described in [Customising how the strip looks](#customising-how-the-strip-looks) below.
 
 **Manual include** (when you want the position hard-wired in your theme instead of going through Layout block): open your template's homepage file, for example
 
@@ -235,6 +225,7 @@ Note: the screen for scheduling flash sales lives in the root admin area. On a m
 - Data table: `shop_product_flash` with `id`, `product_id`, `stock` (units offered), `sold`, `sort`.
 - The price and the window live in the shop's existing promotion table: `shop_product_promotion`.
 - View/translation namespace: `Plugins/ProductFlashSale`.
+- The home-page block is registered into `config('gp247-config.front.layout_block_views')` (key `product_flash_sale`) from `Provider.php`; the plugin ships no template directory and copies nothing into `app/GP247/Templates`. A template's own file is looked up **first**, so your own copy always wins.
 - Helpers you can reuse in a theme:
 
   ```php

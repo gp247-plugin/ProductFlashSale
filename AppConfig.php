@@ -154,6 +154,11 @@ class AppConfig extends ExtensionConfigDefault
      * WHY the template column matters: FrontLayoutBlock::getLayout() filters by
      * store AND template, so a row carrying the wrong template renders nowhere.
      *
+     * Seeded for EVERY store since the block moved to the layout_block_views
+     * registry (modification 20260922T205500): the strip no longer depends on a
+     * file inside some template's directory, so there is no longer a template it
+     * cannot render on.
+     *
      * @return void
      *
      * @aidlc-unit plugin-product-flash-sale
@@ -173,8 +178,8 @@ class AppConfig extends ExtensionConfigDefault
 
         foreach ($stores as $store) {
             $template = (string) $store->template;
-            if (!$this->blockAvailableForTemplate($template)) {
-                continue;
+            if (preg_match('/^[A-Za-z0-9_-]+$/', $template) !== 1) {
+                continue; // the name becomes a path segment in the view key
             }
 
             $taken = \GP247\Front\Models\FrontLayoutBlock::where('store_id', $store->id)
@@ -200,32 +205,6 @@ class AppConfig extends ExtensionConfigDefault
                 'store_id' => $store->id,
             ]);
         }
-    }
-
-    /**
-     * Whether the strip can actually render for a template — the plugin ships the
-     * block for its own template names, and a site may have added its own copy.
-     *
-     * Checked on disk rather than through view()->exists(): during install() the
-     * plugin is not active yet in this process, so its view namespace is not
-     * registered and the runtime lookup would answer "no" for every template.
-     *
-     * @param string $template
-     * @return bool
-     *
-     * @aidlc-unit plugin-product-flash-sale
-     * @aidlc-story US-product-flash-sale-core3-port
-     */
-    protected function blockAvailableForTemplate(string $template): bool
-    {
-        if (preg_match('/^[A-Za-z0-9_-]+$/', $template) !== 1) {
-            return false; // the name becomes a path segment
-        }
-
-        $relative = '/'.$template.'/blocks/'.self::BLOCK_NAME.'.blade.php';
-
-        return is_file(__DIR__.'/template'.$relative)
-            || is_file(app_path('GP247/Templates'.$relative));
     }
 
     /**
