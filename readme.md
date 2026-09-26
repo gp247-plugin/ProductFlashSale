@@ -44,6 +44,28 @@ A flash sale is a promise you can count: **only N units, in this window**. The p
 
 > **Re-installing or updating the plugin does not lose data.** The table is only created when absent and the menu entry only added when missing. Only **Uninstall** drops the table.
 
+### Install from the command line (CLI, gp247 3.x)
+
+Since gp247 3.x you can download **ProductFlashSale** from the GP247 library and install it straight from the command line, without opening the admin. Open a terminal in the website's root folder and run:
+
+```bash
+# 1) Once per website: register the (free) API License that connects the site to the GP247 library
+php artisan gp247:ext-register-license
+
+# 2) Download the plugin from the library and install it
+php artisan gp247:ext-install --type=plugin --key=ProductFlashSale
+```
+
+- Before step 1, make sure `APP_URL` in `.env` is the website's **real domain** (not `http://localhost`) — the license is bound to that domain.
+- Once installed, the plugin is **enabled** and caches are refreshed automatically; nothing else is needed in the admin.
+- The command checks the requirements declared in `gp247.json` (core version, composer packages, required plugins) and stops with a clear message if something is missing.
+- This plugin requires the `gp247/shop` package; if it is missing, the command stops and tells you.
+- If the folder `app/GP247/Plugins/ProductFlashSale` is already on the server (copied manually or shipped with the installer), the command **installs it in place** instead of downloading it again.
+- The command refuses a plugin that is already installed. To move to a newer version, run `php artisan gp247:ext-update --type=plugin --key=ProductFlashSale`.
+- Append `--json` to get machine-readable output (for scripts/CI).
+- The command replaces steps 1–3 above (placing the folder, **Install**, **Enable**). The post-install steps still apply: step 4 (the system creates the table, adds the menu entry and places the strip on the home page) happens exactly the same way, then step 5 (`php artisan optimize:clear` if your site runs with cache) and step 6 (open the **Product Flash Sale** menu to check).
+- More: [Installing Plugins & Templates](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension.md) · [Command reference](https://github.com/gp247net/gp247-docs/blob/main/system/command-line-reference.md).
+
 ## Scheduling a flash sale
 
 1. Open the **Product Flash Sale** menu.
@@ -291,4 +313,4 @@ Note: the screen for scheduling flash sales lives in the root admin area. On a m
 
 ---
 
-<sub>📅 **Last updated:** 2026-09-22 · ✍️ **Author:** GP247</sub>
+<sub>📅 **Last updated:** 2026-09-25 · ✍️ **Author:** GP247</sub>
