@@ -1,4 +1,4 @@
-> 🌐 **Language:** [🇻🇳 Tiếng Việt](./readme_vi.md) · 🇬🇧 English (current)
+> 🌐 **Language:** [🇻🇳 Tiếng Việt](./readme_vi.md) · 🇬🇧 English (current) · [🇯🇵 日本語](./readme_ja.md)
 
 # Product Flash Sale plugin for S-Cart (GP247)
 
@@ -313,4 +313,4 @@ Note: the screen for scheduling flash sales lives in the root admin area. On a m
 
 ---
 
-<sub>📅 **Last updated:** 2026-09-25 · ✍️ **Author:** GP247</sub>
+<sub>📅 **Last updated:** 2026-10-22 · ✍️ **Author:** GP247</sub>
