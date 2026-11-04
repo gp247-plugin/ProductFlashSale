@@ -7,9 +7,9 @@
     "configGroup": "Plugins",
     "configCode": "Promotion",
     "configKey": "ProductFlashSale",
-    "version": "2.0.3",
-    "requireCore": ["3.0","3.1"],
-    "requireUpdateFrom": "2.0",
+    "version": "2.0.4",
+    "requireCore": ["3.10"],
+    "minUpdateFrom": "2.0",
     "requireComposerPackages": ["gp247/shop"],
     "requireGp247Extensions": [],
     "requireLivewire": true

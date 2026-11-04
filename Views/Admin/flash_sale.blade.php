@@ -37,6 +37,9 @@
 
     {{-- Left: schedule / edit --}}
     <x-gp247::card :title="gp247_language_render($editingId ? $appPath.'::lang.admin.edit' : $appPath.'::lang.admin.add_new_title')">
+        <x-slot:actions>
+            <x-gp247::form-new-button :editing="$editingId" data-testid="admin-product-flash-sale-form-new" />
+        </x-slot:actions>
         <form wire:submit="save" class="space-y-4">
 
             <x-gp247::searchable-select
@@ -87,10 +90,7 @@
                 wire:model="form.status_promotion" value="1"
                 data-testid="admin-product-flash-sale-form-status" />
 
-            <div class="flex items-center justify-between border-t border-gray-200 pt-4 dark:border-gray-700">
-                <x-gp247::button variant="secondary" wire:click="cancelEdit" data-testid="admin-product-flash-sale-form-cancel">
-                    {{ gp247_language_render($editingId ? 'admin.cancel' : 'admin.reset') }}
-                </x-gp247::button>
+            <div class="flex items-center justify-end border-t border-gray-200 pt-4 dark:border-gray-700">
                 <x-gp247::button type="submit" wire:loading.attr="disabled" data-testid="admin-product-flash-sale-form-submit">
                     <i class="fas fa-save"></i> {{ gp247_language_render($editingId ? 'admin.update' : 'admin.submit') }}
                 </x-gp247::button>
