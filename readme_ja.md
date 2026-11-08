@@ -64,7 +64,7 @@ php artisan gp247:ext-install --type=plugin --key=ProductFlashSale
 - プラグインが既にインストールされている場合、コマンドは拒否します。新しいバージョンにするには `php artisan gp247:ext-update --type=plugin --key=ProductFlashSale` を実行します。
 - コマンドの末尾に `--json` を付けると、機械で読める形式の結果を受け取れます（スクリプト / CI 用）。
 - このコマンドは上記の手順1〜3（フォルダーの配置、「**Install**」、「**Enable**」）の代わりになります。インストール後の手順はそのまま適用されます：手順4（システムがテーブルを作成し、メニューを追加し、トップページにタイムセール帯を配置）はまったく同じように行われ、手順5（サイトでキャッシュを有効にしている場合は `php artisan optimize:clear`）と手順6（「**タイムセール**」メニューを開いて確認）も同様です。
-- 詳細：[プラグインとテンプレートのインストールガイド](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension.md) · [コマンドリファレンス](https://github.com/gp247net/gp247-docs/blob/main/system/command-line-reference.md)。
+- 詳細：[プラグインとテンプレートのインストールガイド](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension.md) · [コマンドリファレンス](https://github.com/gp247net/gp247-docs/blob/main/cli/cli-extensions_ja.md)。
 
 ## タイムセールを作成する
 

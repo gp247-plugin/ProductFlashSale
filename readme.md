@@ -64,7 +64,7 @@ php artisan gp247:ext-install --type=plugin --key=ProductFlashSale
 - The command refuses a plugin that is already installed. To move to a newer version, run `php artisan gp247:ext-update --type=plugin --key=ProductFlashSale`.
 - Append `--json` to get machine-readable output (for scripts/CI).
 - The command replaces steps 1–3 above (placing the folder, **Install**, **Enable**). The post-install steps still apply: step 4 (the system creates the table, adds the menu entry and places the strip on the home page) happens exactly the same way, then step 5 (`php artisan optimize:clear` if your site runs with cache) and step 6 (open the **Product Flash Sale** menu to check).
-- More: [Installing Plugins & Templates](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension.md) · [Command reference](https://github.com/gp247net/gp247-docs/blob/main/system/command-line-reference.md).
+- More: [Installing Plugins & Templates](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension.md) · [Command reference](https://github.com/gp247net/gp247-docs/blob/main/cli/cli-extensions.md).
 
 ## Scheduling a flash sale
 

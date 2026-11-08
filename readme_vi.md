@@ -64,7 +64,7 @@ php artisan gp247:ext-install --type=plugin --key=ProductFlashSale
 - Nếu plugin đã được cài, lệnh sẽ từ chối. Để lên bản mới, chạy `php artisan gp247:ext-update --type=plugin --key=ProductFlashSale`.
 - Thêm `--json` vào cuối lệnh để nhận kết quả dạng máy đọc được (dùng cho script/CI).
 - Lệnh thay cho các bước 1–3 ở trên (đặt thư mục, **Install**, **Enable**). Các bước sau khi cài vẫn giữ nguyên: bước 4 (hệ thống tự tạo bảng, thêm menu, đặt dải Flash Sale lên trang chủ) diễn ra y hệt, bước 5 (`php artisan optimize:clear` nếu site bật cache) và bước 6 (mở menu **Product Flash Sale** để kiểm tra).
-- Chi tiết: [Hướng dẫn cài đặt Plugin & Template](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension_vi.md) · [Tra cứu lệnh](https://github.com/gp247net/gp247-docs/blob/main/system/command-line-reference_vi.md).
+- Chi tiết: [Hướng dẫn cài đặt Plugin & Template](https://github.com/gp247net/gp247-docs/blob/main/extension/install-extension_vi.md) · [Tra cứu lệnh](https://github.com/gp247net/gp247-docs/blob/main/cli/cli-extensions_vi.md).
 
 ## Tạo một đợt Flash Sale
 
