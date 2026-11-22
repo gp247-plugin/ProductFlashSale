@@ -1,13 +1,13 @@
 > 🌐 **Language:** [🇻🇳 Tiếng Việt](./readme_vi.md) · 🇬🇧 English (current) · [🇯🇵 日本語](./readme_ja.md)
 
-# Product Flash Sale plugin for S-Cart (GP247)
+# Product Flash Sale plugin for S-Cart
 
 ## Introduction
 This document explains how to install and use the **Product Flash Sale** plugin — a tool for time-boxed selling with a limited number of units ("only 20 units, for 3 hours"). It is written for shop owners and GP247 site administrators; no programming knowledge is required. By the end you will be able to schedule a flash sale, put it on your homepage, and understand why the system sometimes refuses an action.
 
 ## How is this different from the built-in "Promotion"?
 
-A GP247 shop already has promotions: a price that applies over a range of dates, routinely running for weeks. That is why the shop's default "Promotion products" block has **no** countdown — a timer over a two-month campaign is a fake scarcity signal.
+S-Cart already has promotions: a price that applies over a range of dates, routinely running for weeks. That is why the shop's default "Promotion products" block has **no** countdown — a timer over a two-month campaign is a fake scarcity signal.
 
 A flash sale is a promise you can count: **only N units, in this window**. The plugin adds exactly two things on top of the existing promotion: the **quantity the sale may sell** and its **display order**. That is what makes the countdown and the "sold / left" bar honest here.
 

@@ -1,13 +1,13 @@
 > 🌐 **Ngôn ngữ:** 🇻🇳 Tiếng Việt (hiện tại) · [🇬🇧 English](./readme.md) · [🇯🇵 日本語](./readme_ja.md)
 
-# Plugin Product Flash Sale cho S-Cart (GP247)
+# Plugin Product Flash Sale cho S-Cart
 
 ## Giới thiệu
 Tài liệu này hướng dẫn cài đặt và sử dụng plugin **Product Flash Sale** — công cụ bán hàng theo khung giờ, có giới hạn số suất ("chỉ 20 suất, trong 3 tiếng"). Tài liệu dành cho chủ cửa hàng và người quản trị site GP247, không yêu cầu biết lập trình. Đọc xong, bạn tự tạo được một đợt Flash Sale, gắn nó lên trang chủ và hiểu vì sao hệ thống đôi khi từ chối một thao tác.
 
 ## Flash Sale khác gì "Khuyến mãi" có sẵn?
 
-Cửa hàng GP247 vốn đã có khuyến mãi: một mức giá áp dụng trong một khoảng ngày, thường kéo dài hàng tuần. Vì thế khối "Promotion products" mặc định của cửa hàng **không** có đồng hồ đếm ngược — đếm ngược cho một chương trình dài hai tháng là tín hiệu khan hiếm giả.
+S-Cart vốn đã có khuyến mãi: một mức giá áp dụng trong một khoảng ngày, thường kéo dài hàng tuần. Vì thế khối "Promotion products" mặc định của cửa hàng **không** có đồng hồ đếm ngược — đếm ngược cho một chương trình dài hai tháng là tín hiệu khan hiếm giả.
 
 Flash Sale là một lời hứa đếm được: **chỉ N suất, trong khung giờ này**. Plugin thêm đúng hai thứ vào khuyến mãi có sẵn: **số suất của đợt** và **thứ tự hiển thị**. Nhờ vậy đồng hồ đếm ngược và thanh "đã bán / còn lại" ở đây là thật.
 
